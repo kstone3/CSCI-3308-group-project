@@ -1,0 +1,85 @@
+<!--
+NAVBAR PARTIAL
+Contains navbar code rendered by all pages
+
+AUTHOR(S): Kieran Stone, Jocelyn McHugo
+
+-->
+
+<script>
+    // render navbar features depending on login state
+    function login() {
+        var res = document.getElementById("login");
+        var pan = document.getElementById("pantry");
+        var icon = document.getElementById("profile-icon");
+        if (!document.cookie.includes('userID')) { // user is not logged in
+            res.setAttribute("href", "/login"); // button goes to login page
+            res.innerHTML = res.innerHTML.replace("Logout", "Login"); // button says "Login"
+            pan.innerHTML = pan.innerHTML.replace("Pantry", ""); // pantry button is hidden
+            icon.style.display = "none"; //profile icon is hidden
+            $p('#profile-button').attr('data-content', ''); // profile popover is emptied
+        } else { // user is logged in
+            res.setAttribute("href", "/logout"); // button goes to logout function
+            res.innerHTML = res.innerHTML.replace("Login", "Logout"); // button says "Logout"
+            pan.innerHTML = `<a class="nav-link" href="/pantry">Pantry</a>`; // pantry button is visible
+            icon.style.display = "block"; // profile icon is visible
+            // update profile popover with user data
+            var btn = $p('#profile-button');
+            var url = window.location.href.split('/')[0]; // TODO make sure this works with heroku
+            $.ajax({ // request user data from api ('/profile') endpoint
+                url:url+"/profile",
+                type:'get',
+                success: function(data){
+                    var content = '';
+                    if (data.hasOwnProperty("error")){ // an error has occurred
+                        content += `<p style="color:red">An error occurred.</p>`;
+                    }else { // fill popover content
+                        content += `<p><strong>Name: </strong>${data.usrName}</p>`;
+                        content+= `<p><strong>Email: </strong>${data.usrEmail}</p>`;
+                    }
+                    btn.attr('data-content', content); // update popover
+                }
+            });
+        }
+    }
+
+    function showProfile(){ // mouseenter function for profile icon
+        $p('#profile-button').popover('show'); // display popover
+    }
+    function hideProfile(){ // mouseleave function for profile icon
+        $p('#profile-button').popover('hide'); // hide popover
+    }
+</script>
+<body onload="login()"> <!-- render login-dependent features -->
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+        <!-- general navbar links -->
+        <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/recipe_search">Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/grocery_list">Grocery List</a>
+        </li>
+        <li class="nav-item" id="saved_recipes">
+            <a class="nav-link" href="/saved_recipes">Saved Recipes</a>
+        </li>
+        <li class="nav-item" id="pantry">
+            <a class="nav-link" href="/pantry">Pantry</a>
+        </li>
+    </ul>
+    <!-- profile/login/logout -->
+    <ul class="navbar-nav text-right" style="margin-left: auto;">
+        <li class="nav-item" id="profile-icon">
+            <button id="profile-button" type="button"  class="btn btn-link" style="padding:0px;" data-container="body" data-toggle="popover" data-trigger="manual"
+                    data-placement="bottom" data-html="true" data-content="" onmouseenter="showProfile()" onmouseleave="hideProfile()">
+                <img src="../../resources/img/chefs-hat.png" alt="profile pic" height="37px" style="margin-right: 10px;">
+            </button>
+        </li>
+        <li class="nav-item">
+            <a id="login" class="btn default-button" href="/logout">Logout</a>
+        </li>
+    </ul>
+</nav>

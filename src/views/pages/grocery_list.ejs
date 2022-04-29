@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+GROCERY LIST PAGE
+server.js renders grocery lists here
+
+AUTHOR(S): Jocelyn McHugo, Kieran Stone
+
+-->
+<html lang="en">
+<head>
+    <title>Grocery List</title>
+    <%- include('../partials/header') %>
+    <script>
+        /**
+         * Checks or unchecks grocery rows. Triggered by checkbox click.
+         *
+         * @author Jocelyn McHugo
+         *
+         * @param index the grocery's local index
+         */
+        function gotGrocery(index){
+            var checkbox = document.getElementById(`grocery-check-${index}`); // get the grocery's checkbox
+            var row = document.getElementById(`grocery-row-${index}`); // get the grocery's row
+
+            if(!checkbox.checked){ // already checked (seems counterintuitive, but works)
+                row.style.textDecoration = ""; // clear strikethrough
+                checkbox.checked = false; // uncheck
+            }else{ // not already checked
+                row.style.textDecoration = "line-through"; // strikethrough row
+                checkbox.checked = true; // check
+            }
+        }
+    </script>
+</head>
+<%- include('../partials/navbar') %>
+<br>
+<!-- header -->
+<div class="jumbotron" style="background-color: var(--background-dark);">
+    <h3 class="display-3">My Grocery List</h3>
+</div>
+<br>
+<!-- grocery table -->
+<table class="table alt-rows">
+    <thead>
+    <tr class="table-header">
+        <th scope="col">Have?</th>
+        <th scope="col">Ingredient Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Unit</th>
+        <th scope="col">Recipe</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- get data from the server to render list -->
+    <% if (data && data[0].hasOwnProperty("item")) { // data is returned and contains groceries
+        var composedHTML = '';
+        data.forEach((grocery, index) => { // iterate through grocery list
+            var checked = "";
+            var rowStyle = "";
+            if (grocery.checked) { // grocery has been prechecked by the server
+                checked = "checked";
+                rowStyle = "text-decoration: line-through;";
+            }
+            // compose grocery row based on server data
+            composedHTML += `<tr id="grocery-row-${index}" class=table-row style=${rowStyle}>`; //FIXME the quotes here might be missing
+            composedHTML += `<td><input id="grocery-check-${index}" type=checkbox onclick="gotGrocery(${index})" ${checked}></td>`;
+            composedHTML += `<td>${grocery.item}</td>`;
+            composedHTML += `<td>${grocery.quantity}</td>`;
+            composedHTML += `<td>${grocery.unit}</td>`;
+            composedHTML += `<td><a href=${grocery.recipeLink}>${grocery.recipe}</a></td>`;
+            composedHTML += `</tr>`;
+        });
+    } %>
+    <!-- display composed HTML -->
+    <%- composedHTML %>
+    </tbody>
+</table>
+<% include('../partials/footer') %>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--
+RECIPE SEARCH PAGE
+Contains main API search capability for the website. Associated script file is recipe_search.js
+
+AUTHOR(S): Jocelyn McHugo, Haolin Yang
+
+-->
+<html lang="en">
+<head>
+    <title>Recipe Search</title>
+    <%- include('../partials/header') %>
+    <script src="../../resources/js/recipe_search.js"></script>
+</head>
+<%- include('../partials/navbar') %>
+<!-- header -->
+<div class="jumbotron" style="background-color: var(--background-dark);">
+    <h3 class="display-3">Recipe Search</h3>
+</div>
+<!-- main row organization (splits page into two columns)-->
+<div class="row">
+    <!-- left page column -->
+    <div id="search-filter-div" class="col-sm-3">
+        <h4 style="font-size: 25px;">Refine Search: </h4>
+        <!-- Container for search filters -->
+        <div>
+            <div style="text-align: center; padding: 10px">
+                <input type="submit" value="Update filters" class="dark-button" onclick="getRecipes(1)">
+                <!-- triggers the getRecipes() function with a new search, using the new filters -->
+            </div>
+            <label for="meal-type">Meal type:</label>
+            <select id="meal-type" name="meal-type">
+                <option selected value></option>
+                <option value="Breakfast">Breakfast</option>
+                <option value="Dinner">Dinner</option>
+                <option value="Lunch">Lunch</option>
+                <option value="Snack">Snack</option>
+                <option value="Teatime">Teatime</option>
+            </select>
+
+            <label for="cuisine-type">Cuisine:</label>
+            <select id="cuisine-type">
+                <option selected="" value=""></option>
+                <option value="American"> American</option>
+                <option value="Asian"> Asian</option>
+                <option value="British"> British</option>
+                <option value="Caribbean"> Caribbean</option>
+                <option value="Central Europe"> Central Europe</option>
+                <option value="Chinese"> Chinese</option>
+                <option value="Eastern Europe"> Eastern Europe</option>
+                <option value="French"> French</option>
+                <option value="Indian"> Indian</option>
+                <option value="Italian"> Italian</option>
+                <option value="Japanese"> Japanese</option>
+                <option value="Kosher"> Kosher</option>
+                <option value="Mediterranean"> Mediterranean</option>
+                <option value="Mexican"> Mexican</option>
+                <option value="Middle Eastern"> Middle Eastern</option>
+                <option value="Nordic"> Nordic</option>
+                <option value="South American"> South American</option>
+                <option value="South East Asian"> South East Asian</option>
+            </select>
+            <label for="dish-type">Dish type: </label>
+            <select id="dish-type">
+                <option selected="" value=""></option>
+                <option value="Biscuits and cookies"> Biscuits and cookies  </option>
+                <option value="Bread"> Bread  </option>
+                <option value="Cereals"> Cereals  </option>
+                <option value="Condiments and sauces"> Condiments and sauces  </option>
+                <option value="Desserts"> Desserts  </option>
+                <option value="Drinks"> Drinks  </option>
+                <option value="Main course"> Main course  </option>
+                <option value="Pancake"> Pancake  </option>
+                <option value="Preps"> Preps  </option>
+                <option value="Preserve"> Preserve  </option>
+                <option value="Salad"> Salad  </option>
+                <option value="Sandwiches"> Sandwiches  </option>
+                <option value="Side dish"> Side dish  </option>
+                <option value="Soup"> Soup  </option>
+                <option value="Starter"> Starter  </option>
+                <option value="Sweets"> Sweets  </option>
+            </select>
+
+        </div>
+    </div>
+    <!-- right column -->
+    <div class="col" style="float: left;">
+        <!-- main search bar and button -->
+        <div id="top-search-bar" class="container-fluid" style="margin-bottom: 20px; height: 50px; font-size: 25px;">
+            <input id="search-bar" type="text" placeholder="Search for recipes"
+                   style="padding-right: 0; height: 100%; width: 82%;">
+            <button id="search-button" class="default-button" type="submit" style="font-size: 2.5vw"
+                    onclick="getRecipes(1)">
+                Search
+            </button>
+        </div>
+        <!-- script to listen for enter keypress in the search bar -->
+        <script>
+            document.getElementById("search-bar").addEventListener("keyup", (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    document.getElementById("search-button").click(); // automatically "click" the search button, triggering a new search
+                }
+            });
+        </script>
+        <!-- container for search results, populated by getRecipes() -->
+        <div class="container-fluid" id="resultContainer">
+
+        </div>
+        <!-- button to load next page of search results. hidden until search is executed -->
+        <div class="container-fluid" id="page-control" style="text-align: center;">
+            <button class="default-button" id="next-page" style="visibility: hidden;" onclick="getRecipes()">Load Next
+            </button>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

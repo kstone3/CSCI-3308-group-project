@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+HOME PAGE
+Main landing page. Associated script file is homepage.js. Associated stylesheet is homepage_style.css
+
+AUTHOR(S): Jamal
+
+-->
+<html lang="en">
+<head>
+    <title>Home</title>
+    <%- include('../partials/header') %>
+    <script src="../../resources/js/homepage.js"></script>
+    <link href="../../resources/css/homepage_style.css" rel="stylesheet" />
+</head>
+<%- include('../partials/navbar') %>
+
+<div class="jumbotron" style="background-color: var(--background-dark); text-align: center;">
+    <h3 class="display-3">Sharp pantry</h3>
+</div>
+
+
+
+<div class="container-fluid menus" id="aboutSharp">
+    <div class="container menu">
+        <div class="menu-content">
+            <div class="container">
+                <h1 style="text-align: center;">About Sharp Pantry</h1>
+                <p> We want to help minimize your food waste.</p>
+                <p> We do this by taking in what you currently have in your pantry </p>
+                <p> All you have to do is look and enter into a table what you have and quantity</p>
+                <p> </p>
+            
+            </div><!-- container -->
+        </div>
+    </div><!-- container -->
+</div><!-- container-fluid -->
+
+
+<div id="getStarted"> 
+    <h3 style="text-align: center;"> Get Started!</h3>
+
+    <div class="container-fluid" style="width: fit-content;">
+        <!-- FIXME these go to the same page -->
+                <div class="card" style="float: right; margin-right: 0;">
+                  <div class="card-body">
+                    <a href="/login" class="btn btn-primary" id="loginBtn"><h5>Log in</h5><p>To sign into an account press the button</p></a>
+                  </div>
+                </div>
+                <div class="card" style="float: left; margin-left: 0;">
+                <div class="card-body">
+                    <a href="/login" class="btn btn-primary" id="signupBtn"><h5>Sign up</h5><p>To make an account press the button</p></a>
+                </div>
+                </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

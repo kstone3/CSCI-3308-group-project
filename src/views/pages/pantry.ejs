@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+PANTRY PAGE
+Contains main pantry functions for the website. Relies heavily on server.js
+
+AUTHOR(S): Adam Richling
+
+-->
+<html lang="en">
+<head>
+    <title>Pantry</title>
+    <%- include('../partials/header') %>
+</head>
+<%- include('../partials/navbar') %>
+<div class="containter-fluid">
+    <!-- Bar with page name at the top -->
+    <div class="jumbotron" style="background-color: var(--background-dark);">
+        <h3 class="display-3">Pantry</h3>
+    </div>
+    <div class="row">
+        <!-- Side Bar to add or remove items from the pantry -->
+        <div id="search-filter-div" class="col-sm-3">
+            <form action="/pantry/update_items" method="post">
+                <h4 style="font-size: 25px;">Edit Pantry Items:</h4>
+                <div style="padding:10px">
+                    <input type="text" id="ingredientName" name="ingredientName" placeholder="Ingredient Name">
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-8" style="padding-top:10px; padding-bottom:10px">
+                        <input type="text" id="ingredientQuantity" name="ingredientQuantity" placeholder="Quantity">
+                    </div>
+                    <div class="col-sm-3" style="padding-top:10px; padding-bottom:10px">
+                        <select id="unitSelect" name="ingredientUnit">
+                            <option selected>Units</option>
+                            <option value="Bottle">Bottle</option>
+                            <option value="Can">Can</option>
+                            <option value="Oz">Oz</option>
+                            <option value="lbs">lbs</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="text-align: center; padding: 10px">
+                    <select id="method" name="method">
+                        <option selected>Add / Delete</option>
+                        <option value="add">Add</option>
+                        <option value="del">Delete</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div style="text-align: center; padding: 10px">
+                            <input type="submit" value="Submit" class="contrast-button btn btn-primary">
+                        </div>
+                        <!-- TODO: Add JS to add the value to the table and database -->
+                        <!-- TODO: Add JS to remove the value fro the table and database -->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col">
+            <table class="table table-bordered alt-rows" id="pantryTable">
+                <tr class="table-header">
+                    <th class="align-bottom">Ingredient Name</th>
+                    <th class="align-bottom">Quantity</th>
+                    <!-- <th class="align-bottom">Unit</th> -->
+                </tr>
+                <!-- Loops through the given JSON and adds the items as new rows of the table -->
+                <%if (pantry) {
+                    var pantryHTML = '';
+                    pantry.forEach(item => {
+                        if (item.quantity > 0) {
+                            pantryHTML += '<tr class="table-row"><td>'+item.name+'</td><td>'+item.quantity+'</td></tr>';    
+                        }
+                    }); %>
+                    <!-- Load the new HTML -->
+                    <%- pantryHTML %>
+                <%}%>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer') %>

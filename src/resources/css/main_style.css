@@ -1,0 +1,144 @@
+/*
+MASTER SYTLESHEET
+
+AUTHOR(S): Jocelyn McHugo
+ */
+
+:root {
+    /* master colors */
+    --contrast-pale: #9eded4aa;
+    --contrast-light: #3cffe3;
+    --contrast: #26c1a9;
+    --contrast-dark: #1c8978;
+    --background-light: #ffffff;
+    --text: #7a7c7c;
+    --text-dark: #5a5c5c;
+    --background-dark: #d0d4d4;
+    --border-radius: 4px;
+}
+
+/* primary style */
+body {
+    background-color: var(--background-light);
+    color: var(--text);
+    border-color: var(--text)
+}
+
+/* link style */
+a {
+    color: var(--contrast);
+}
+
+/* link hover style */
+a:hover {
+    color: var(--contrast-dark);
+}
+
+/* default buttons (grey) */
+.default-button {
+    background-color: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: 5px;
+    color: var(--text);
+    border-width: 0;
+}
+
+/* default buttons on hover (teal) */
+.default-button:hover {
+    background-color: var(--contrast);
+}
+
+/* dark buttons (dark grey) */
+.dark-button {
+    background-color: var(--text);
+    border-radius: var(--border-radius);
+    color: var(--background-light);
+    border-width: 0;
+}
+
+/* dark buttons on hover (dark teal) */
+.dark-button:hover {
+    background-color: var(--contrast-dark);
+    color: var(--background-light);
+}
+
+/* contrast buttons (teal) */
+.contrast-button {
+    background-color: var(--contrast);
+    border-radius: var(--border-radius);
+    color: var(--background-light);
+    border-width: 0;
+}
+
+/* contrast buttons on hover (dark teal) */
+.contrast-button:hover {
+    background-color: var(--contrast-dark);
+}
+
+/* navbar links on hover */
+.nav-link:hover {
+    color: var(--contrast) !important;
+}
+
+/* master styles for search filter container */
+#search-filter-div {
+    margin-left: 20px;
+    padding: 10px 10px 10px 10px;
+    background-color: var(--background-dark);
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+/* style for labels in search filter container */
+#search-filter-div label {
+    padding-bottom: 0;
+    padding-top: 10px;
+}
+
+/* override styles for all select menus */
+select {
+    width: 100%;
+    word-wrap: break-word;
+    color: var(--text);
+}
+
+/* override styles for all inputs */
+input {
+    width: 100%;
+    word-wrap: break-word;
+    color: var(--text);
+}
+
+/* sliders */
+.slider {
+    background-color: var(--background-dark);
+}
+
+/* centered elements */
+.center {
+    height: 200px;
+    position: relative;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+/* table header elements in table rows with class "table-header" */
+tr.table-header th {
+    color: var(--text-dark);
+}
+
+/* table cell elements in table rows with class "table-row" */
+tr.table-row td {
+    color: var(--text-dark);
+    padding: 6px 6px 6px 15px;
+}
+
+/* even-numbered rows in tables with the class "alt-rows" are pale teal */
+table.alt-rows tr:nth-child(even) {
+    background-color: var(--contrast-pale);
+}
+

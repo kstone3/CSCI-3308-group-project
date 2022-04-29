@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+SAVED RECIPE PAGE
+Renders recipes saved by the user. Associated script file is saved_recipes.js
+
+AUTHOR(S): Jocelyn McHugo
+
+-->
+<html lang="en">
+<head>
+    <title>Saved Recipes</title>
+    <%- include('../partials/header') %>
+    <script src="../../resources/js/saved_recipes.js"></script>
+</head>
+<%- include('../partials/navbar') %>
+<!-- header -->
+<div class="jumbotron" style="background-color: var(--background-dark);">
+    <h3 class="display-3">Saved Recipes</h3>
+</div>
+
+<!-- container for results -->
+<div class="container-fluid" id="resultContainer" onload="updateRecipes()">
+
+</div>
+<%- include('../partials/footer') %>
